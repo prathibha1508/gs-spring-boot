@@ -24,8 +24,9 @@ steps:
     targetType: 'inline'
     script: |
       pwd
+      cd $(Build.SourcesDirectory)/app/target
       ls
-      echo "$(Build.SourcesDirectory)"
+      
 - task: CopyFiles@2
   inputs:
     Contents: '$(Build.SourcesDirectory)/app/target/*.jar' 
