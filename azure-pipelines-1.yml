@@ -19,6 +19,11 @@ steps:
     publishJUnitResults: true
     testResultsFiles: '**/surefire-reports/TEST-*.xml'
     goals: 'package'
+- task: CmdLine@2
+  inputs:
+    script: |
+      dir
+      ls
 - task: CopyFiles@2
   inputs:
     Contents: '$(Build.SourcesDirectory)/target/*.jar' 
