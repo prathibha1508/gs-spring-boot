@@ -28,7 +28,7 @@ steps:
       echo "$(Build.SourcesDirectory)"
 - task: CopyFiles@2
   inputs:
-    Contents: '$(Build.SourcesDirectory)/target/*.jar' 
+    Contents: '$(Build.SourcesDirectory)/app/target/*.jar' 
     TargetFolder: $(Build.ArtifactStagingDirectory)
     CleanTargetFolder: true
     flattenFolders: true
