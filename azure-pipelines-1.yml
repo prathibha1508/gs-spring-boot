@@ -34,7 +34,7 @@ steps:
     targetType: 'inline'
     script: |
       Get-CimInstance -ClassName Win32_LogicalDisk
-      Get-ChildItem "$(Build.SourcesDirectory)\.." -Force -Recurse | Measure-Object -Property Length -sum | Select-Object -ExpandProperty Sum)/1GB
+      '(Get-ChildItem "$(Build.SourcesDirectory)\.." -Force -Recurse | Measure-Object -Property Length -sum | Select-Object -ExpandProperty Sum)/1GB'
   continueOnError: true
 # - task: CopyFiles@2
 #   inputs:
