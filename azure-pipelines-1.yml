@@ -58,6 +58,6 @@ steps:
 - task: CmdLine@2
   inputs:
     script: |
-    df -h
-    'Get-CimInstance -ClassName Win32_LogicalDisk'
+      df -h
+      'Get-CimInstance -ClassName Win32_LogicalDisk'
     
