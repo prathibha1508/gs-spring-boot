@@ -30,14 +30,14 @@ steps:
 #       cd $(Build.SourcesDirectory)/app/target
 #       ls
 - task: PowerShell@2
-  displayName: 'Debug - Print Size - Root'
-  enabled: false
+  displayName: 'Debug '
+  enabled: true
   inputs:
     targetType: 'inline'
     script: '(Get-ChildItem "$(Build.SourcesDirectory)\.." -Force -Recurse | Measure-Object -Property Length -sum | Select-Object -ExpandProperty Sum)/1GB'
 
 - task: PowerShell@2
-  displayName: 'Debug - Print Size - Root'
+  displayName: 'Print Size - Root'
   enabled: true #false
   inputs:
     targetType: 'inline'
@@ -54,6 +54,7 @@ steps:
     PathtoPublish: $(Build.ArtifactStagingDirectory)
     ArtifactName: 'BuildArtifacts'
     publishLocation: Container 
+  retryCountOnTaskFailure: 5  
 - task: PowerShell@2
   displayName: 'Debug - Print Size - Root'
   enabled: true #false
