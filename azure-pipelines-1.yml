@@ -10,16 +10,16 @@ pool:
   vmImage: 'windows-2019'
   
 steps:
-- task: Maven@3
-  inputs:
-    mavenPomFile: 'app/pom.xml'
-    mavenOptions: '-Xmx3072m'
-    javaHomeOption: 'JDKVersion'
-    jdkVersionOption: '1.8'
-    jdkArchitectureOption: 'x64'
-    publishJUnitResults: true
-    testResultsFiles: '**/surefire-reports/TEST-*.xml'
-    goals: 'package'
+# - task: Maven@3
+#   inputs:
+#     mavenPomFile: 'app/pom.xml'
+#     mavenOptions: '-Xmx3072m'
+#     javaHomeOption: 'JDKVersion'
+#     jdkVersionOption: '1.8'
+#     jdkArchitectureOption: 'x64'
+#     publishJUnitResults: true
+#     testResultsFiles: '**/surefire-reports/TEST-*.xml'
+#     goals: 'package'
 # - task: PowerShell@2
 #   inputs:
 #     targetType: 'inline'
@@ -33,20 +33,20 @@ steps:
   inputs:
     targetType: 'inline'
     script: |
-      Get-CimInstance -ClassName Win32_LogicalDisk
+      'Get-CimInstance -ClassName Win32_LogicalDisk'
       '(Get-ChildItem "$(Build.SourcesDirectory)\.." -Force -Recurse | Measure-Object -Property Length -sum | Select-Object -ExpandProperty Sum)/1GB'
-- task: CopyFiles@2
-  inputs:
-    Contents: '$(Build.SourcesDirectory)/app/target/*.jar' 
-    TargetFolder: $(Build.ArtifactStagingDirectory)
-    CleanTargetFolder: true
-    flattenFolders: true
-- task: PublishBuildArtifacts@1
-  inputs:
-    PathtoPublish: $(Build.ArtifactStagingDirectory)
-    ArtifactName: 'BuildArtifacts'
-    publishLocation: Container 
-
+  continueOnError: true
+# - task: CopyFiles@2
+#   inputs:
+#     Contents: '$(Build.SourcesDirectory)/app/target/*.jar' 
+#     TargetFolder: $(Build.ArtifactStagingDirectory)
+#     CleanTargetFolder: true
+#     flattenFolders: true
+# - task: PublishBuildArtifacts@1
+#   inputs:
+#     PathtoPublish: $(Build.ArtifactStagingDirectory)
+#     ArtifactName: 'BuildArtifacts'
+#     publishLocation: Container 
 - task: PowerShell@2
   displayName: 'Debug - Print Size - Root'
   enabled: true #false
