@@ -6,8 +6,9 @@
 trigger:
 - master
 
-pool: 'self-hosted-machine'
-
+pool: #'self-hosted-machine'
+  name: 'ubuntu-latest'
+  
 steps:
 - task: Maven@3
   inputs:
@@ -26,7 +27,13 @@ steps:
       pwd
       cd $(Build.SourcesDirectory)/app/target
       ls
-      
+
+- task: PowerShell@2
+  displayName: 'Debug - Print Size - Root'
+  enabled: false
+  inputs:
+    targetType: 'inline'
+    script: '(Get-ChildItem "$(Build.SourcesDirectory)\.." -Force -Recurse | Measure-Object -Property Length -sum | Select-Object -ExpandProperty Sum)/1GB'
 - task: CopyFiles@2
   inputs:
     Contents: '$(Build.SourcesDirectory)/app/target/*.jar' 
@@ -38,3 +45,10 @@ steps:
     PathtoPublish: $(Build.ArtifactStagingDirectory)
     ArtifactName: 'BuildArtifacts'
     publishLocation: Container 
+
+- task: PowerShell@2
+  displayName: 'Debug - Print Size - Root'
+  enabled: false
+  inputs:
+    targetType: 'inline'
+    script: '(Get-ChildItem "$(Build.SourcesDirectory)\.." -Force -Recurse | Measure-Object -Property Length -sum | Select-Object -ExpandProperty Sum)/1GB'
