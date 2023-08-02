@@ -10,7 +10,7 @@ pool:
   vmImage: 'windows-2019'
 
 workspace:
-  clean: outputs | resources | all # what to clean up before the job
+  clean: all # what to clean up before the job   c outputs | resources | 
 steps:
 - task: Maven@3
   inputs:
